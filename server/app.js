@@ -12,7 +12,7 @@ let storage = multer.diskStorage({
     cb(null,'./upload')
   },
   filename: (req,file,cb) => {
-    cb(null,file.originalname)
+    cb(null,Date.now() + '-' +file.originalname)
   }
 })
 
@@ -29,7 +29,7 @@ app.post('/upload', upload.single('files'), (req, res) => {
       fileUrl: `file/${req.file.filename}`
     });
   else 
-    res.status("409").json("No Files to Upload.")
+    res.status("409").json('no file uploaded')
 });
 
 app.get('/file')
